@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "typeRoots": ["@types", "node_modules/@types"],
+    "outDir": "../out-tsc/app",
+    "types": ["node"]
+  },
+  "include": ["./src", "./scripts"],
+  "exclude": [
+    "src/test.ts",
+    "**/*.spec.ts"
+  ]
+}

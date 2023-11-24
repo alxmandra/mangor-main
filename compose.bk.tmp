@@ -1,0 +1,120 @@
+version: '3'
+x-common-variables: &common-variables
+  MYSQL_DATABASE: mangor
+  MYSQL_USER: MYSQL_USER
+  MYSQL_PASSWORD: MYSQL_PASSWORD
+services:
+    mysql_db:
+        image: mysql
+        restart: always
+        cap_add:
+        - SYS_NICE
+        volumes:
+        - "./setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        ports:
+        - "9906:3306"
+        environment:
+            <<: *common-variables
+            MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+            MYSQL_HOST: localhost
+    adminer:
+      image: adminer:latest
+      restart: unless-stopped
+      ports:
+        - 8000:8080
+      depends_on:
+        - mysql_db
+      environment:
+        ADMINER_DEFAULT_SERVER: mysql_db
+    mongo:
+        container_name: mongo
+        image: mongo:4.4.6 #latest at the moment version has an issue with cpu compatibility. Thus - stick with exact working
+        hostname: mongo
+        healthcheck:
+            test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5
+            start_period: 40s
+        volumes:
+            - ./data:/data/db
+        ports:
+            - "27017:27017" 
+        networks:
+            - example-net 
+    web:
+        build:
+          context: ./web
+        container_name: web
+        hostname: web
+        ports:
+        - '3000:3000'
+        networks:
+            - example-net
+    book-app:
+        build:
+          context: ./book_app
+        container_name: bookserver
+        hostname: bookserver
+        ports:
+            - "3002:3000" 
+        networks:
+            - example-net
+        depends_on:
+            mongo:
+                condition: service_healthy
+    nodejs-app:
+        build:
+          context: ./nodedocker_app
+        container_name: nodejsserver
+        hostname: nodejsserver
+        ports:
+            - "3001:3000" 
+        networks:
+            - example-net
+        depends_on:
+            mongo:
+                condition: service_healthy
+    nodejs-app2:
+        build:
+          context: ./nodedocker_app
+        container_name: nodejsserver2
+        hostname: nodejsserver
+        ports:
+            - "3003:3000" 
+        networks:
+            - example-net
+        depends_on:
+            mongo:
+                condition: service_healthy
+    nodejs-app3:
+        build:
+          context: ./nodedocker_app
+        container_name: nodejsserver3
+        hostname: nodejsserver
+        ports:
+            - "3004:3000" 
+        networks:
+            - example-net
+        depends_on:
+            mongo:
+                condition: service_healthy
+    nginx:
+        build:
+          context: ./nginx
+        container_name: nginx
+        hostname: nginx
+        ports:
+            - "80:80" 
+        depends_on:
+            - nodejs-app
+            - book-app
+            - nodejs-app2
+            - nodejs-app3
+            # - web
+        networks:
+            - example-net
+
+networks:
+  example-net:
+    external: false

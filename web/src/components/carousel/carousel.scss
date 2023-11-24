@@ -1,0 +1,13 @@
+.mangor {
+    &_carousel {
+        &_wrapper {
+           /*  position: fixed; */
+            display: grid;
+            height: 20rem;
+            background-color: var(--bs-gray-400);
+            .carousel-inner, .carousel-item {
+                height: 100%;
+            }
+        }
+    }
+}

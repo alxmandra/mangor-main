@@ -1,0 +1,32 @@
+<legend>{{mode.label}}</legend>
+<div *ngIf="authorisationError.length > 0" class="has-error">
+	<div class="help-block">
+		{{authorisationError}}
+	</div>
+</div>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+	<div *ngFor="let control of getForm()">
+		<div class="user-form-group" [ngClass]="{ 'has-error': invalidInput(control) }">
+			<label for={{control}} class="control-label">{{getFormAtribute(control, 'label')}}</label>
+			<input type="{{getFormAtribute(control, 'type') || 'text'}}" formControlName={{control}}
+				class="form-control" id={{control}} (input)="checkInputs()" name={{control}}
+				placeholder="{{getFormAtribute(control, 'label')}}">
+			<div *ngIf="invalidInput(control)" id="input_has_error" class="help-block">
+				<div *ngFor="let err of getError(control)">
+					{{err}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="login_footer_buttons">
+		<div>
+			<button type="button" (click)="onSecondaryButtonClick()"
+				class="btn btn-secondary float-right">{{this.mode.secondaryButton.label}}</button>
+			<button type="submit" class="btn btn-primary float-right">{{this.mode.primaryButton.label}}</button>
+		</div>
+		<div *ngIf="this.mode.id === this.modes.login.id">
+			<a class="nav-link active"
+				(click)="onSecondaryButtonClick(this.modes.forgot)">{{this.modes.forgot.label}}</a>
+		</div>
+	</div>
+</form>

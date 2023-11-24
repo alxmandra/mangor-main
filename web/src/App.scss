@@ -1,0 +1,47 @@
+@import url('./bootstrap.min.css');
+
+:root {
+  --main-button-background: ivory;
+  --main-button-color: #70809091;
+  --general-border: 0.001rem solid var(--main-button-background);
+  --general-border-radius: 8%;
+  --general-border-width: 0.01rem;
+  --general-border-style: solid;
+  --general-border-color: lavender;
+  --general-highlight-color: lightslategrey;
+}
+
+@font-face {
+  font-family: Gruppo;
+  src: url('../public/fonts/Gruppo-Regular.ttf') format('truetype');
+  font-style: normal;
+}
+
+.App {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+
+  .footer-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .branding {
+      padding: 0 5px;
+    }
+  }
+
+}
+
+body {
+  min-height: 100vh;
+  margin: 0 auto;
+  font-family: Gruppo, Calibri, Tahoma, sans-serif;
+  font-weight: 600;
+  height: 100%;
+}

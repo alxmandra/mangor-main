@@ -1,0 +1,35 @@
+@import "../../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css";
+
+.has-error {
+    .help-block {
+        color: red;
+    }
+}
+
+.user-form-group {
+    padding-top: 1rem;
+}
+
+.login_footer_buttons {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+
+    .btn {
+        float: right;
+        margin-left: 0.5rem;
+    }
+
+    .nav-link {
+        color: cornflowerblue;
+        cursor: pointer;
+    }
+
+    .nav-link:hover {
+        text-decoration: underline;
+    }
+}

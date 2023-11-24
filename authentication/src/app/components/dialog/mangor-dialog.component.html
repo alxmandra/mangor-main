@@ -1,0 +1,12 @@
+<div class="jw-modal">
+  <div class="jw-modal-body">
+    <h1>{{header}}</h1>
+    <p>{{bodyText}}</p>
+    <div class="jw-modal-footer">
+      <div *ngFor="let fitem of footer">
+        <button type="button" (click)="fitem.action()">{{fitem.label}}</button>
+      </div>
+      <button type="button" (click)="close()" class="btn btn-primary btn-sm">Cancel</button>
+    </div>
+  </div>
+</div>
