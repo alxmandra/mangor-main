@@ -1,6 +1,7 @@
 
 # mangor 
-[logo]: https://github.com/alxmandra/mangor/blob/main/web/public/favicon.png "Mangor" ![MANGOR MERN+NGINX+Micro-UI+Microservices][logo]
+[logo]: https://github.com/alxmandra/mangor/blob/main/web/public/favicon.png 
+![MANGOR MERN+NGINX+Micro-UI+Microservices][logo]
 ### This repository contains MERN+ stack experements, including:
 
 1. dockerized microservices for authentication, API-gateway, MongoDB, and MySQL databases, with further extensions to the specific functionality according to the business profile.
