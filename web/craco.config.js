@@ -20,8 +20,8 @@ module.exports = (env) => {
               new ModuleFederationPlugin({
                 name: "shell",
                 remotes: {
-                  mangorAuthentication: `mangorAuthentication@${authentication}/remoteEntry.js`,
-                  store: `store@${sharedStore}/remoteEntry.js`,
+                  mangorAuthentication: `mangorAuthentication@authentication/remoteEntry.js`,
+                  store: `store@sharedStore/remoteEntry.js`,
                 },
                 shared: {
                   ...deps,

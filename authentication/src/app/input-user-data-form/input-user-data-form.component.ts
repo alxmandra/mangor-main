@@ -21,7 +21,7 @@ export class InputUserDataFormComponent implements OnInit {
 	serviceErrors: any = {};
 	inputs = {};
 	authorisationError = '';
-	API_URL = `http://${process.env['REACT_APP_AUTH_SERVER']}/users/`;
+	API_URL = `/usersStore/`;
 	inputsExtras: [{ [key: string]: string }] | Object = {};
 	modes = formHelper.modes
 	private _mode: formHelper.Mode = this.modes.login

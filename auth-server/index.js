@@ -47,7 +47,7 @@ app.use(session({}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/users", userRouter);
+app.use("/usersStore", userRouter);
 
 app.get("/", function (req, res) {
   res.send({ status: "success" });

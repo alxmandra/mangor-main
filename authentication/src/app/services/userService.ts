@@ -24,7 +24,7 @@ export class UserService {
             }
         )
     }
-    API_URL = `http://${process.env['REACT_APP_AUTH_SERVER']}/users/`;
+    API_URL = `/usersStore/`;
     private auth_token = ''
     private headers = new HttpHeaders()
         .set('content-type', 'application/json')

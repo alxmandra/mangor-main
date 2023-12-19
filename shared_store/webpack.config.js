@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/index',
   mode: 'development',
   output: {
-    publicPath: 'auto',
+    publicPath: '/sharedStore/',
   },
   devServer: {
     port: 3003,

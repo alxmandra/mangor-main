@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `http://${process.env.REACT_APP_AUTH_SERVER}/users/`;
+const API_URL = `/usersStore/`;
 
 interface Body {
   [key:string]: string
@@ -22,11 +22,11 @@ const instance = axios.create({
 export const myself = (token: string) => {
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   return instance
-    .get(API_URL + "myself");
+    .get("myself");
 }
 export const logout = () => {
   return instance
-    .post(API_URL + "logout")
+    .post("logout")
     .then((response: { data: { accessToken: any; }; }) => {
       delete instance.defaults.headers.common["Authorization"];
       return response.data;
