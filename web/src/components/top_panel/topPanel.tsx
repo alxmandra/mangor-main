@@ -38,7 +38,6 @@ export const TopPanel = () => {
         myself(event['detail'].token).then(user => {
             const { email, firstName, lastName, username } = user.data
             setUser({ email, firstName, lastName, username })
-            localStorage.setItem('token', event['detail'].token)
         }).catch(
             () => {
                 localStorage.removeItem('token')

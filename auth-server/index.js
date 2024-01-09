@@ -4,6 +4,10 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const session = require('express-session')
+const {ROUTES} = require("./routes/appRoutes");
+const {setupRateLimit} = require("./middlewares/ratelimit");
+const {setupLogging} = require("./middlewares/logging");
+const {setupProxies} = require("./middlewares/proxy");
 
 if (process.env.NODE_ENV !== "production") {
   // Load environment variables from .env file in non prod environments
@@ -52,7 +56,12 @@ app.use("/usersStore", userRouter);
 app.get("/", function (req, res) {
   res.send({ status: "success" });
 });
+// setup middlewares
+setupLogging(app);
+setupProxies(app, ROUTES);
+setupRateLimit(app, ROUTES);
 
+app.disable('x-powered-by')
 //Start the server in port 3002
 
 const server = app.listen(process.env.PORT || 3002, function () {

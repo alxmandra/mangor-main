@@ -12,7 +12,6 @@ setupLogging(app);
 setupProxies(app, ROUTES);
 setupRateLimit(app, ROUTES);
 app.disable('x-powered-by')
-console.log(process.env)
 app.listen(port, () => {
     console.log(`API-Gateway app listening at http://localhost:${port}`)
 })

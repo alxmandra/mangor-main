@@ -1,38 +1,35 @@
-import axios from "axios";
+import {getOpenHttpClient, getProtectedHttpClient} from './communicationService';
 
 const API_URL = `/usersStore/`;
 
 interface Body {
   [key:string]: string
 }
+const pClient = getProtectedHttpClient(API_URL);
+
 export const register = (body:Body) => {
-  return axios.post(API_URL + "signup", {
+  return getOpenHttpClient(API_URL).post(API_URL + "signup", {
     ...body
   });
 };
-const instance = axios.create({
-  withCredentials: true,
-  baseURL: API_URL,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    Cache: "no-cache",
-  },
-})
+
 export const myself = (token: string) => {
-  instance.defaults.headers.common.Authorization = `Bearer ${token}`;
-  return instance
+  
+  pClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+  return pClient
     .get("myself");
 }
+
 export const logout = () => {
-  return instance
+  return pClient
     .post("logout")
     .then((response: { data: { accessToken: any; }; }) => {
-      delete instance.defaults.headers.common["Authorization"];
+      delete pClient.defaults.headers.common["Authorization"];
       return response.data;
     });
 };
 
-export const getCurrentUser = () => {
-  return null;
-}; 
+export const refreshToken = () => {
+  return pClient
+    .post("refreshToken");
+};

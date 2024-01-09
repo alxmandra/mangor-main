@@ -102,8 +102,7 @@ export class InputUserDataFormComponent implements OnInit {
 					this.userForm.controls['password'].value
 				).subscribe({
 					next: data => {
-						const event = new CustomEvent('mangor::authentication', { detail: data, bubbles: false });
-						window.dispatchEvent(event);
+						localStorage.setItem('token', data.token)
 					},
 					error: (e) => {
 						this.authorisationError = e.error;

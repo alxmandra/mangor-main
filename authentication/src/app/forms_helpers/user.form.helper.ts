@@ -10,7 +10,6 @@ export const customValidatorForm = (form: FormGroup) => {
     }
     const passwordMismatch = pass?.value != _pass?.value ? { 'passwordMismatch': "Entered value isn't match" } : null;
     let errors = { ..._pass?.errors }
-    console.log(passwordMismatch, 'passwordMismatch')
     if (passwordMismatch) {
       errors = { ...errors, passwordMismatch }
     } else {
