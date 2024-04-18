@@ -142,9 +142,6 @@ router.get("/myself", verifyUser, (req, res) => {
   if (refToken) {
   res.cookie("refreshToken", refToken, COOKIE_OPTIONS);
   }
-
-console.log(req);
-
   res.send(req.user);
 });
 

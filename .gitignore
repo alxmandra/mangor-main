@@ -3,8 +3,11 @@
 # dependencies
 /node_modules
 */node_modules
+
+**/.angular/
 /.pnp
 .pnp.js
+/.vscode
 
 # testing
 /coverage

@@ -2,8 +2,8 @@ const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlug
 const deps = require('./package.json').dependencies;
 const webpack = require('webpack');
 
-module.exports = (env) => {
-  const sharedStore = `http://${process.env.SHARED_STORE || 'localhost:3003'}`;
+module.exports = (environment) => {
+  const shared_store = `http://${process.env.SHARED_STORE || 'localhost:3003'}`;
   const authentication = `http://${process.env.AUTHENTICATION || 'localhost:3001'}`;
   return {
     plugins: [
@@ -14,14 +14,17 @@ module.exports = (env) => {
             webpackConfig.plugins = [
               ...webpackConfig.plugins,
               // fix "process is not defined" error:
-              new webpack.ProvidePlugin({
+              new webpack.DefinePlugin({
                 'process.env.REACT_APP_AUTH_SERVER': JSON.stringify(process.env.REACT_APP_AUTH_SERVER),
+                'process.env.REACT_APP_HOST': `${JSON.stringify(process.env.REACT_APP_HOST || 'localhost:3004/')}`,
+                'process.env.REACT_APP_PHOTOSERVICE': `${JSON.stringify(process.env.REACT_APP_PHOTOSERVICE || "")}`,
+
               }),
               new ModuleFederationPlugin({
                 name: "shell",
                 remotes: {
-                  mangorAuthentication: `mangorAuthentication@authentication/remoteEntry.js`,
-                  store: `store@sharedStore/remoteEntry.js`,
+                  mangorAuthentication: `mangorAuthentication@${environment.env === 'development'? authentication : 'authentication'}/remoteEntry.js`,
+                  store: `store@${environment.env === 'development'? shared_store : 'shared_store'}/remoteEntry.js`,
                 },
                 shared: {
                   ...deps,

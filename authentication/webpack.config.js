@@ -5,13 +5,16 @@ const share = mf.share;
 const webpack = require('webpack');
 
 const sharedMappings = new mf.SharedMappings();
+const shared_store = `http://${process.env.SHARED_STORE ||  'localhost:3003'}`
 sharedMappings.register(
   path.join(__dirname, 'tsconfig.json'),
-  [/* mapped paths to share */]);
+  [/* mapped paths to share */]
+);
 module.exports = {
   output: {
     uniqueName: "mangorAuthentication",
-    publicPath: "/authentication/",
+    publicPath: "auto",
+    //publicPath: "/authentication/",
     scriptType:'text/javascript'
   },
   optimization: {
@@ -39,7 +42,7 @@ module.exports = {
         },
         
         remotes: {
-          store: `store@sharedStore/remoteEntry.js`,
+          store: `store@shared_store/remoteEntry.js`,
         },
 
         shared: share({

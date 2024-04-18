@@ -1,13 +1,58 @@
+@keyframes kenny {
+    25% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .8;
+        scale: 1;
+    }
+
+    60% {
+        opacity: 0;
+    }
+
+    /* 100% {
+        opacity: 0;
+        scale: 1;
+    } */
+}
+
 .mangor {
     &_carousel {
         &_wrapper {
-           /*  position: fixed; */
+            /*  position: fixed; */
             display: grid;
             height: 20rem;
             background-color: var(--bs-gray-400);
-            .carousel-inner, .carousel-item {
+
+            .carousel-inner,
+            .carousel-item {
                 height: 100%;
             }
+
+            .image_bordered {
+                height: 100%;
+                opacity: 0.75;
+                width: 100%;
+                background-size: cover;
+                background-position: center;
+                overflow: hidden;
+                scale: 2;
+            }
+
+            .card {
+                opacity: 0.75;
+                z-index: 1001;
+                position: fixed;
+                margin-left: 50%;
+                margin-top: 4%;
+                box-shadow: 8px 2px 17px #b99f9f;
+
+            }
+            
+            
         }
+
     }
 }

@@ -10,7 +10,7 @@ export const About = () => (
             </div>
             <div className="container">
                 <div className="row" >
-                    <MangorCard />
+                    <MangorCard title="Hello" text="Text of the card"/>
                 </div>
             </div>
         </div>

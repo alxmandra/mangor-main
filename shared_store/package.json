@@ -18,6 +18,7 @@
     "webpack-cli": "^5.1.4"
   },
   "scripts": {
+    "start::dev": "webpack-cli serve --config ./webpack.dev.config.js",
     "start": "webpack-cli serve",
     "build": "webpack --mode production",
     "serve": "serve dist -p 3003",

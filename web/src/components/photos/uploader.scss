@@ -1,0 +1,12 @@
+.uploader {
+    &_image_preview {
+        height: 255px;
+    width: 238px;
+    object-fit: scale-down;
+    }
+    &_header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

@@ -1,0 +1,38 @@
+.flip-animate {
+    perspective: 1000px;
+}
+
+.rotate {
+    display: inline-block;
+    animation-delay: 0s;
+    animation: color-change 6s infinite;
+}
+
+@keyframes color-change {
+    0% {
+        color: red;
+        transform: rotateY(360deg)
+    }
+
+    50% {
+        color: inherit;
+        transform: rotateY(0)
+    }
+}
+
+.flipTop {
+    display: inline-block;
+    animation-delay: 3s;
+    animation: r-change 6s infinite;
+}
+
+@keyframes r-change {
+    0% {
+        transform: rotateX(360deg)
+    }
+
+    50% {
+
+        transform: rotateX(0)
+    }
+}

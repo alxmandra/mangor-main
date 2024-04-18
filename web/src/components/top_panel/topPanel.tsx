@@ -17,6 +17,7 @@ import { myself } from '../../services/authService';
 import Col from 'react-bootstrap/Col';
 import { Authentication } from "../authenticate/authentication";
 import { useGlobalUserContext } from "../../context-providers/global-user-context";
+import { MangorSpinner } from "../mangor_spinner/mangor_spinner";
 const myMenu: MenuItems = menuItems;
 interface option {
     label: string
@@ -135,7 +136,9 @@ export const TopPanel = () => {
                                     />
                                 </Col>
                                 <Col>
-                                    MANGOR
+                                
+                                <MangorSpinner/>
+                                    
                                 </Col>
                             </Row>
                         </Container>

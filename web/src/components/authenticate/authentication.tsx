@@ -64,8 +64,8 @@ export const Authentication = () => {
         setShow(true)
     };
     return (<>
-        <Button variant="secondary" onClick={handleShow}>
-            {user ? user.username : t('Login')}
+        <Button className={user?.username ? '' : 'swing'} variant="secondary" onClick={handleShow}>
+            {user?.username || t('Login')}
         </Button>
 
         <Modal show={show} onHide={handleClose}>

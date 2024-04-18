@@ -8,6 +8,7 @@ export const getOpenHttpClient = (API_URL: string) => {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Cache: "no-cache",
+            'Access-Control-Allow-Origin': '*'
         }
     });
 }
@@ -20,6 +21,7 @@ export const getProtectedHttpClient = (API_URL: string) => {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Cache: "no-cache",
+            'Access-Control-Allow-Origin': '*'
         },
     }))
 }

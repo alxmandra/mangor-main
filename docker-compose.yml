@@ -1,10 +1,11 @@
 version: '3'
 x-common-variables: &common-variables
-  MYSQL_DATABASE: mangor
-  MYSQL_USER: MYSQL_USER
-  MYSQL_PASSWORD: MYSQL_PASSWORD
+  MYSQL_DATABASE: photos
+  MYSQL_USER: gorman
+  MYSQL_PASSWORD: gorman
 services:
-    mysql_db:
+    mysql:
+        # container_name: mysql
         image: mysql
         restart: always
         cap_add:
@@ -12,24 +13,30 @@ services:
         volumes:
         - "./setup.sql:/docker-entrypoint-initdb.d/setup.sql"
         ports:
-        - "9906:3306"
+          - "3306:3306"
+        # - "9906:3306"
         environment:
             <<: *common-variables
             MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
-            MYSQL_HOST: localhost
-        networks:
-            - example-net
+            MYSQL_HOST: mysql
+        healthcheck:
+         test: ["CMD-SHELL", "mysql -h mysql -u  root -p$$MYSQL_ROOT_PASSWORD" ]
+         interval: 30s
+         timeout: 20s
+         retries: 10
+        # networks:
+        #     - example-net
     adminer:
       image: adminer:latest
       restart: unless-stopped
       ports:
         - 8000:8080
       depends_on:
-        - mysql_db
+        - mysql
       environment:
-        ADMINER_DEFAULT_SERVER: mysql_db
-      networks:
-            - example-net
+        ADMINER_DEFAULT_SERVER: mysql
+      # networks:
+      #       - example-net
     mongo:
         container_name: mongo
         image: mongo:4.4.6 #latest at the moment version has an issue with cpu compatibility. Thus - stick with exact working
@@ -44,8 +51,8 @@ services:
             - ./data:/data/db
         ports:
             - "27017:27017" 
-        networks:
-            - example-net
+        # networks:
+        #     - example-net
     web:
         build:
           context: ./web
@@ -53,14 +60,33 @@ services:
         hostname: web
         ports:
         - '3000:3000'
-        networks:
-            - example-net
+        # networks:
+        #     - example-net
         depends_on:
              - authentication
         environment:
         - SHARED_STORE=localhost:3003
         - REACT_APP_AUTH_SERVER=localhost:3002
         - AUTHENTICATION=localhost:3001
+    photogallery:
+        build:
+          context: ./photogallery
+        container_name: photogallery
+        hostname: photogallery
+        ports:
+        - '3004:3004'
+        # networks:
+        #     - example-net
+        depends_on:
+         mysql:
+          condition: service_healthy
+              # condition: service_started
+        environment:
+        - SHARED_STORE=localhost:3003
+        - REACT_APP_AUTH_SERVER=localhost:3002
+        - AUTHENTICATION=localhost:3001
+        volumes:
+            - ./data:/data/photogallery
     shared_store:
         build:
           context: ./shared_store
@@ -68,8 +94,8 @@ services:
         hostname: shared_store
         ports:
         - '3003:3003'
-        networks:
-            - example-net
+        # networks:
+        #     - example-net
     auth-server:
         build:
           context: ./auth-server
@@ -77,8 +103,8 @@ services:
         hostname: auth-server
         ports:
         - '3002:3002'
-        networks:
-            - example-net
+        # networks:
+        #     - example-net
         depends_on:
              - mongo
         environment:
@@ -90,8 +116,8 @@ services:
         hostname: authentication
         ports:
         - '3001:3001'
-        networks:
-            - example-net
+        # networks:
+        #     - example-net
         depends_on:
              - auth-server
              - shared_store
@@ -114,16 +140,17 @@ services:
       - ./data/certbot/www:/var/www/certbot
      depends_on:
           - mongo
-     networks:
-            - example-net
+          - photogallery
+    #  networks:
+    #         - example-net
     certbot:
      image: certbot/certbot
      volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
-     networks:
-            - example-net
+    #  networks:
+    #         - example-net
 
-networks:
-  example-net:
-    driver: bridge
+# networks:
+#   example-net:
+#     driver: bridge

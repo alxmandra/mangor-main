@@ -75,11 +75,12 @@
 					"builder": "ngx-build-plus:dev-server",
 					"configurations": {
 						"production": {
-							"browserTarget": "mangor-authentication:build:production",
+							"buildTarget": "mangor-authentication:build:production",
 							"extraWebpackConfig": "webpack.prod.config.js"
 						},
 						"development": {
-							"browserTarget": "mangor-authentication:build:development"
+							"buildTarget": "mangor-authentication:build:development",
+							"extraWebpackConfig": "webpack.dev.config.js"
 						}
 					},
 					"defaultConfiguration": "development",
@@ -92,7 +93,7 @@
 				"extract-i18n": {
 					"builder": "ngx-build-plus:extract-i18n",
 					"options": {
-						"browserTarget": "mangor-authentication:build",
+						"buildTarget": "mangor-authentication:build",
 						"extraWebpackConfig": "webpack.config.js"
 					}
 				},
