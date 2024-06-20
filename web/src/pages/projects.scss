@@ -1,0 +1,244 @@
+.grid {
+    width: 95vw;
+    height: var(--h);
+    display: grid;
+    --m: 1;
+    --n: 6;
+    --g: 0.5rem;
+    --h: 85vh;
+    //gap: var(--g);
+    transition: all .2s ease-in-out;
+    grid-template-areas:
+        "cell-0 cell-0 cell-0"
+        "cell-1 cell-1 cell-1"
+        "cell-2 cell-2 cell-2"
+        "cell-3 cell-3 cell-3"
+        "cell-4 cell-4 cell-4"
+        "cell-5 cell-5 cell-5";
+    }
+
+
+// .grid--full {
+//     --m: 1;
+//     --n: 6;
+//     --g: 1rem;
+//     --h: 85vh;
+//     grid-template-areas:
+//         "cell-0 cell-0 cell-0"
+//         "cell-1 cell-1 cell-1"
+//         "cell-2 cell-2 cell-2"
+//         "cell-3 cell-3 cell-3"
+//         "cell-4 cell-4 cell-4"
+//         "cell-5 cell-5 cell-5";
+//     /* grid-template-areas:none; */
+//     /* grid-template-columns: repeat(var(--m), auto); */
+// }
+
+@media (prefers-reduced-motion: no-preference) {
+    .grid>* {
+        transition: all 0.55s linear;
+        opacity: 0.75;
+    }
+}
+
+/* button {
+    background-color: #123456;
+    color: #ffffff;
+    margin: 2rem 0;
+    padding: 1.4rem;
+    border: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+  } */
+
+button:focus-visible {
+    outline: 4px solid #123456;
+    outline-offset: 4px;
+}
+
+dt {
+    font-weight:bolder;
+    margin-bottom: 0.5rem;
+}
+
+.item_base {
+    width: 0;
+    height: 0;
+    min-height: 100%;
+    min-width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    filter: grayscale(45%);
+    transition: .55s linear;
+    //display: inline-table;
+    //animation-timing-function: linear;
+    /* background-color: orangered; */
+    // z-index: 99;
+}
+
+.item:where(:hover, :focus, :active) {
+    // grid-column: span 3;
+    filter: grayscale(0.05);
+    opacity: 1;
+    /* width: calc(20vh*var(--f)/var(--n));
+    height: 3vh; */
+    scale: 1.1;
+    z-index: 99;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+}
+
+.item:where(:hover, :active):before {
+    height: 20px;
+    animation: fade-in 1s;
+}
+
+.item .description {
+    // position: absolute;
+    width: 100%;
+    top: 112px;
+    // z-index: 2;
+    align-self: center; //added this property
+    animation: fade-out .02s;
+
+}
+
+.item .description h2 {
+    margin-bottom: 10px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0);
+    // transform: translateY(50px);
+    // transition-delay: 0s;
+    //transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    animation: fade-out .02s;
+}
+
+.item:where(:hover, :active) .description h2 {
+    color: inherit;
+    transform: translateY(0%);
+    transition-delay: 0.15s;
+}
+
+.item .description p {
+    text-align: center;
+    color: rgba(255, 255, 255, 0);
+    // transform: translateY(50px);
+    // transition-delay: 0s;
+    animation: fade-out .02s;
+    //transition: transform .5s cubic-bezier(0.19, 1, 0.22, 1), color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.item:where(:hover, :active) .description p {
+    color: inherit;
+    transform: translateY(0%);
+    transition-delay: 0.05s;
+}
+
+.div-size {
+    //transition: flex 0.3s ease-out;
+    //flex: 0;
+/*     transition: transform 0.5s linear;
+     transition-delay: 0.275s; */
+    // width: 100vw; 
+    // height: 100vh; 
+    font-weight:bolder;
+    transition-delay: 0.05s;
+    transform: scale(0.7);
+    position: fixed;
+    top: 52px;
+    left: 0;
+    z-index: 1;
+    opacity: 1;
+}
+
+.hover_base {
+    opacity: 0;
+    top: 0;
+    z-index: 99;
+    position: absolute;
+    margin-left: -12px;
+}
+
+.tile_container {
+    margin-bottom: 10px;
+    //mix-blend-mode: difference;
+    // color: white;
+    text-align: center;
+
+    h2,
+    p {
+        // color: white;
+        mix-blend-mode:difference;
+        // margin-top: revert;
+    }
+}
+
+.tile_image_faded {
+    // align-self: center;
+    opacity: 0.75;
+    // margin-top: -20px;
+    // display: inline-flex;
+    // transition-delay: 0s;
+    // transition: all 0.25s linear;
+}
+
+
+@keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  .item .tile_image_faded_wrapper {
+    margin-top: -25px;
+    // animation: fade-out .02s;
+    // float: left;
+    // padding: 1rem;
+}
+  .item:where(:hover, :active) .tile_image_faded_wrapper {
+    animation: fade-in 1s;
+}
+
+@media (min-width:992px) {
+    .item:where(:hover, :focus, :active) {
+        // grid-column: span 3;
+        filter: grayscale(0.05);
+        opacity: 1;
+        //transform: scale(1.2);
+        transition:
+        width 2s;
+        height: 1s;
+        //scale: 1.1;
+        z-index: 99;
+        box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+        transition: all .40s ease-in-out;
+    }
+    .grid {
+        --n: 3;
+        /* number of rows*/
+        --m: 4;
+        /* number of columns */
+        --g: 0.5rem;
+        /* control the gap */
+        --f: 1.2;
+        /* control the scale factor */
+        --h: 85vh;
+        gap: var(--g);
+        grid-template-areas:
+            "cell-0 cell-1 cell-2"
+            "cell-3 cell-1 cell-4"
+            "cell-5 cell-5 cell-4";
+        grid-template-columns: none;
+    }
+}

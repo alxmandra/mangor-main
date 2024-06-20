@@ -2,7 +2,7 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 
 
-import { useCallback, useEffect, useState, useRef, Key, ReactElement, KeyboardEvent, ChangeEvent, SetStateAction } from 'react';
+import { useCallback, useEffect, useState, useRef, Key, ReactElement, KeyboardEvent, ChangeEvent } from 'react';
 import './responsiveTable.scss';
 import { IColumn } from './dummyRows';
 
@@ -167,7 +167,7 @@ function ResponsiveTable({ rowsOffset, columns, dataSource, headerProps, cellPro
         const getRowCheckBox = (row: any) => {
             let rowBlueprint = (<Form.Check
                 type={'checkbox'}
-                onChange={e => { toggleSelection(e, row) }}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => { toggleSelection(e, row) }}
                 checked={rowsSource[row.id]?.checked}
             />)
             return rowBlueprint

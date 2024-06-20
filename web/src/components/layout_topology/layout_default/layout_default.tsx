@@ -7,6 +7,7 @@ import { NoPage } from '../../../pages/NoPage';
 import { useGlobalUserContext } from '../../../context-providers/global-user-context';
 import { Users } from '../../../pages/users';
 import { Photos } from '../../../pages/photos';
+import { Projects } from '../../../pages/projects';
 
 
 const LayoutDefault = () => {
@@ -20,6 +21,7 @@ const LayoutDefault = () => {
         <Route path="/" element={<Home />} />
         <Route path="/photos" element={<Photos />} />
         <Route path="/about" element={<About />} />
+        <Route path="/projects" element={<Projects />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </>

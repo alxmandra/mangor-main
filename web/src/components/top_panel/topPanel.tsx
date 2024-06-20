@@ -12,6 +12,7 @@ import i18n from '../../i18n';
 import { Row } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap';
 import { myself } from '../../services/authService';
+import "./topPanel.scss"
 
 
 import Col from 'react-bootstrap/Col';
